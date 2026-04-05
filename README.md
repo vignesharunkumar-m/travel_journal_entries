@@ -47,13 +47,13 @@ Travel Journal Entries helps users capture travel memories in a structured and r
 
 Add your APK download URL here before publishing:
 
-- `APK Link:` [Add APK Download Link Here](https://example.com/apk-download-link)
+- `APK Link:` [Add APK Download Link Here](https://drive.google.com/drive/folders/1QcxqNC0ercKZdeinA6usZeTeOXupZsiG?usp=sharing)
 
 ## Loom Video Link
 
 Add your walkthrough/demo video URL here before publishing:
 
-- `Loom Video:` [Add Loom Video Link Here](https://www.loom.com/)
+- `Loom Video:` [Add Loom Video Link Here](https://drive.google.com/drive/folders/1QcxqNC0ercKZdeinA6usZeTeOXupZsiG?usp=sharing)
 
 ## Assumptions
 
