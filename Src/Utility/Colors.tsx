@@ -1,0 +1,25 @@
+export const COLORS = {
+  primary: '#BA8047',
+  secondary: '#FCF6EF',
+  border: '#D0B99A',
+  placeHolder: '#D0B99A',
+  textMid: '#8b6340',
+
+  background: '#F5F5F5',
+  textSecondary: '#777777',
+  error: '#FF3B30',
+  success: '#4CD964',
+  warning: '#FF9500',
+  white: '#FFFFFF',
+  black: '#000000',
+  transparent: 'transparent',
+  disableColour: '#A9A9A9',
+  transparentDimColor: 'rgba(0, 0, 0, 0.5)',
+
+  bg: '#fdf6ee',
+  card: '#ffffff',
+  textDark: '#3d2b1a',
+  textLight: '#bba98c',
+  inputBg: '#ffffff',
+  actionBg: '#f9f2e8',
+};

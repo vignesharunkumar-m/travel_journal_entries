@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "237608787999",
+    "project_id": "travel-journal-entries",
+    "storage_bucket": "travel-journal-entries.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237608787999:android:8c28ae23bbbdc3a6d7b52a",
+        "android_client_info": {
+          "package_name": "com.traveljournalentries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237608787999-4hok0gm5qd26blsvhgoum3ten5cunk6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.traveljournalentries",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "237608787999-aso9qbrd89bhkfpadhc8td0vm8b6ouge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1doWTMuRv0Enr2AURksrI5EmXwafH_WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237608787999-aso9qbrd89bhkfpadhc8td0vm8b6ouge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
