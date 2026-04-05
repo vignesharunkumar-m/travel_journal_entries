@@ -39,20 +39,13 @@ const { actions, reducer } = createSlice({
         };
       },
     },
-    StoreNetworkStatus: (state, action: PayloadAction<boolean | null>) => {
-      state.isNetworkConnected = action.payload;
-    },
     ClearUtilityReduxData: () => {
       return initialState;
     },
   },
 });
 
-export const {
-  StoreInsetsData,
-  StoreIsLoading,
-  StoreNetworkStatus,
-  ClearUtilityReduxData,
-} = actions;
+export const { StoreInsetsData, StoreIsLoading, ClearUtilityReduxData } =
+  actions;
 
 export default reducer;

@@ -2,11 +2,6 @@ import { Dimensions, Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { LoadingTextKey } from '../@types/StaticTypes';
 
-export const LOGINDATAKEY = 'ACHIRA_LOGIN';
-export const PROFILEDETAILS = 'ACHIRA_PROFILE';
-
-export const DOWNLOAD_FOLDER_NAME = 'Achira';
-
 export const WINDOW_HEIGHT = Dimensions.get('window').height;
 export const WINDOW_WIDTH = Dimensions.get('window').width;
 
