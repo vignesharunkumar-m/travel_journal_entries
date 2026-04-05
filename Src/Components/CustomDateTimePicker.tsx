@@ -9,6 +9,7 @@ import { COLORS } from '../Utility/Colors';
 import { FONTSIZES } from '../Utility/FontSizes';
 import { ACTIVE_OPACITY } from '../Utility/Constants';
 import { CustomDateTimePickerProps } from '../@types/components';
+import { useThemeMode } from '../Hooks/useThemeMode';
 
 const CustomDateTimePicker = ({
   onSelect,
@@ -24,19 +25,20 @@ const CustomDateTimePicker = ({
   inputContainerStyle,
   placeHolder = 'Select Date & Time',
 }: CustomDateTimePickerProps) => {
+  const { colors } = useThemeMode();
   const [isShowDatePicker, setIsShowDatePicker] = useState(false);
 
   const getValue = () => {
     return value ? value : placeHolder;
   };
-  console.log(value ? moment(value, format) : new Date(), 'DATETETTE', value);
-
   return (
     <View style={[styles.container, customContainerStyle]}>
       {/* TITLE */}
       {title ? (
         <View style={styles.titleRow}>
-          <StyledText style={styles.title}>{title}</StyledText>
+          <StyledText style={[styles.title, { color: colors.textSecondary }]}>
+            {title}
+          </StyledText>
 
           {isRequired && <StyledText style={styles.requiredText}>*</StyledText>}
         </View>
@@ -51,12 +53,13 @@ const CustomDateTimePicker = ({
           inputContainerStyle,
           {
             borderColor: errorText ? COLORS.error : borderColor,
+            backgroundColor: colors.surface,
           },
         ]}
       >
         <StyledText
           style={{
-            color: value ? COLORS.black : COLORS.placeHolder,
+            color: value ? colors.textPrimary : colors.textMuted,
             fontSize: FONTSIZES.medium,
             fontFamily: FONTS.medium,
           }}

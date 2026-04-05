@@ -5,6 +5,7 @@ import { FONTS } from '../Utility/Fonts';
 import { COLORS } from '../Utility/Colors';
 import { CustomHeaderProps } from '../@types/components';
 import { IS_IOS } from '../Utility/Constants';
+import { useThemeMode } from '../Hooks/useThemeMode';
 
 const CustomHeader = ({
   title,
@@ -12,11 +13,15 @@ const CustomHeader = ({
   onBackPress,
   isShowBorder = false,
 }: CustomHeaderProps) => {
+  const { colors } = useThemeMode();
+
   return (
     <View
       style={[
         styles.backHeaderConatiner,
+        { backgroundColor: colors.background },
         isShowBorder ? styles.headerBorder : null,
+        isShowBorder ? { borderBottomColor: colors.border } : null,
       ]}
     >
       <View style={styles.titleRow}>
@@ -29,7 +34,9 @@ const CustomHeader = ({
             style={styles.backIcon}
           />
         )}
-        <Text style={styles.titleStyle}>{title}</Text>
+        <Text style={[styles.titleStyle, { color: colors.textPrimary }]}>
+          {title}
+        </Text>
       </View>
     </View>
   );
@@ -61,7 +68,6 @@ const styles = StyleSheet.create({
   },
   backHeaderConatiner: {
     height: 50,
-    backgroundColor: COLORS.secondary,
     paddingHorizontal: 15,
     paddingVertical: 11,
     flexDirection: 'row',

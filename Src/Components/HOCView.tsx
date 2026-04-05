@@ -9,6 +9,7 @@ import { COLORS } from '../Utility/Colors';
 import { useLoader } from '../Utility/StoreData';
 import { HOCViewProps } from '../@types/Components';
 import CustomHeader from './CustomHeader';
+import { useThemeMode } from '../Hooks/useThemeMode';
 
 const HOCView = ({
   children,
@@ -35,6 +36,7 @@ const HOCView = ({
   bgColor = COLORS.secondary,
 }: HOCViewProps) => {
   const { isLoading, text } = useLoader();
+  const { colors } = useThemeMode();
   function MainComponent() {
     return (
       <>
@@ -88,7 +90,7 @@ const HOCView = ({
                     bounces={true}
                     ref={scrollViewRef}
                     refreshControl={refreshControl}
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, backgroundColor: bgColor }}
                     contentContainerStyle={scrollViewContentContainerStyle}
                     showsVerticalScrollIndicator={false}
                     nestedScrollEnabled
@@ -113,7 +115,7 @@ const HOCView = ({
       edges={[]}
       style={{
         flex: 1,
-        backgroundColor: bgColor,
+        backgroundColor: bgColor ?? colors.background,
       }}
     >
       {MainComponent()}
@@ -122,7 +124,7 @@ const HOCView = ({
     <View
       style={{
         flex: 1,
-        backgroundColor: bgColor,
+        backgroundColor: bgColor ?? colors.background,
       }}
     >
       {MainComponent()}

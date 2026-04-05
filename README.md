@@ -1,97 +1,321 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Travel Journal Entries
 
-# Getting Started
+A React Native CLI mobile application for creating, managing, and syncing travel journal posts with an offline-first experience. Users can sign in with Google, create journal entries with photos and location details, save posts locally in SQLite, and sync them to Firebase Firestore when internet is available.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## App Overview
 
-## Step 1: Start Metro
+Travel Journal Entries helps users capture travel memories in a structured and reliable way. The app is designed to work well even in weak or offline network conditions by saving data locally first and syncing to the cloud later. It also enriches posts with readable place names and image-based tags when online.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Features
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- Google Sign-In authentication
+- Persistent login session
+- Offline-first post creation and editing
+- Local SQLite storage
+- Firebase Firestore sync
+- Create, edit, delete, and view post details
+- Image upload from gallery and camera
+- Automatic current location capture
+- Human-readable place name resolution using Mapbox
+- AI image tagging using Azure Computer Vision
+- Search and filter by keyword, tags, and date range
+- Pull-to-refresh on the post list
+- Dark and light theme support
+- Push notification handling
 
-```sh
-# Using npm
-npm start
+## Tech Stack
 
-# OR using Yarn
-yarn start
+- React Native CLI
+- TypeScript
+- React Hooks
+- Redux Toolkit
+- React Navigation
+- SQLite with `@op-engineering/op-sqlite`
+- Firebase Authentication
+- Firebase Firestore
+- Firebase Cloud Messaging
+- Google Sign-In
+- Mapbox Geocoding API
+- Azure Computer Vision API
+- Notifee
+
+## Build Optimization
+
+- Proguard is enabled for release APK optimization and code shrinking on Android
+
+## APK Download Link
+
+Add your APK download URL here before publishing:
+
+- `APK Link:` [Add APK Download Link Here](https://example.com/apk-download-link)
+
+## Loom Video Link
+
+Add your walkthrough/demo video URL here before publishing:
+
+- `Loom Video:` [Add Loom Video Link Here](https://www.loom.com/)
+
+## Assumptions
+
+- The app is built with React Native CLI, not Expo
+- Firebase project setup is already available
+- Google Sign-In is configured correctly in Firebase
+- Firestore database is created in the Firebase console
+- Mapbox and Azure API credentials are available
+- Android Studio and Xcode environments are set up correctly on the development machine
+- Users may create posts while offline, and those posts will sync later
+
+## App Flow Explanation
+
+### 1. User Login
+
+- User signs in using Google
+- The authenticated user session is stored securely
+- On the next app launch, the app restores the session automatically if available
+
+### 2. App Launch
+
+- App initializes Redux, auth, theme, notifications, and navigation
+- Local SQLite database is prepared
+- Existing journal posts are loaded from local storage first
+- If internet is available, pending data is synced in the background
+
+### 3. Create Post
+
+- User opens the post screen
+- Adds title, description, date/time, and images
+- Current location is captured automatically in the background
+- If online, place name is resolved from coordinates
+- Post is saved locally first with pending sync state
+
+### 4. Sync Flow
+
+- Local pending actions are stored in an outbox
+- When internet is available, pending posts are pushed to Firestore
+- Missing place names are resolved using Mapbox
+- Missing image tags are generated using Azure Computer Vision
+- Local DB and Redux state are updated to synced status
+
+### 5. Post List
+
+- Home screen shows posts from local SQLite-backed Redux state
+- Newest posts appear at the top
+- Pull-to-refresh reloads local data quickly and runs sync when online
+- Filters are applied on the client for smooth performance
+
+### 6. Post Details
+
+- User can open a full post details screen
+- All images are shown vertically
+- Place, date/time, description, and tags are displayed clearly
+
+## Project Structure
+
+```text
+.
+├── App.tsx
+├── index.js
+├── Src
+│   ├── Components
+│   ├── Hooks
+│   ├── Screens
+│   │   ├── AuthScreens
+│   │   └── MainScreens
+│   ├── Stack
+│   ├── Store
+│   │   └── Slices
+│   ├── Utility
+│   ├── config
+│   ├── db
+│   ├── features
+│   │   └── journal
+│   └── services
+├── android
+└── ios
 ```
 
-## Step 2: Build and run your app
+## Setup Instructions
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Prerequisites
 
-### Android
+Install and configure the following:
 
-```sh
-# Using npm
-npm run android
+- Node.js `>= 22.11.0`
+- npm
+- React Native CLI environment
+- Android Studio
+- Android SDK and emulator
+- Java SDK
+- Xcode for iOS development on macOS
+- CocoaPods
 
-# OR using Yarn
-yarn android
+Helpful references:
+
+- [React Native Environment Setup](https://reactnative.dev/docs/environment-setup)
+- [Android Studio](https://developer.android.com/studio)
+- [CocoaPods Setup](https://guides.cocoapods.org/using/getting-started.html)
+
+### Install Dependencies
+
+```bash
+npm install
 ```
 
-### iOS
+### iOS Pod Installation
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+```bash
+cd ios
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
+cd ..
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Firebase Setup
 
-```sh
-# Using npm
+Configure Firebase with:
+
+- Authentication
+  - Enable Google Sign-In
+- Firestore Database
+- Cloud Messaging
+
+Required native config:
+
+- Android: `android/app/google-services.json`
+- iOS: add `GoogleService-Info.plist` to the iOS project if required
+
+### API Key Setup
+
+Add your service credentials in:
+
+- `Src/config/apiKeys.ts`
+
+This file is used for:
+
+- Mapbox access token
+- Azure Computer Vision endpoint
+- Azure Computer Vision API key
+
+## How to Run the Project
+
+### Start Metro
+
+```bash
+npm start
+```
+
+### Run on Android
+
+```bash
+npm run android
+```
+
+### Run on iOS
+
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Development Mode
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Useful commands:
 
-## Step 3: Modify your app
+```bash
+npm start
+npm run android
+npm run ios
+npm run lint
+npm test
+```
 
-Now that you have successfully run the app, let's make changes!
+Fast Refresh is enabled by default while Metro is running.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Architecture Summary
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- `App.tsx` handles root app bootstrapping, navigation, and notifications
+- `Src/Hooks/useAuth.ts` manages login state and session restore
+- `Src/Store/Slices/journalSlice.ts` manages journal CRUD and sync orchestration
+- `Src/features/journal/database.ts` handles SQLite schema and local persistence
+- `Src/services/geocodingService.ts` resolves place names from coordinates
+- `Src/services/imageLabelService.ts` generates image tags from uploaded photos
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Firestore Structure
 
-## Congratulations! :tada:
+### Users Collection
 
-You've successfully run and modified your React Native App. :partying_face:
+```text
+users/{userId}
+```
 
-### Now what?
+Fields:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- `userId`
+- `name`
+- `email`
+- `profileImage`
+- `createdAt`
 
-# Troubleshooting
+### Posts Collection
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```text
+posts/{postId}
+```
 
-# Learn More
+Fields:
 
-To learn more about React Native, take a look at the following resources:
+- `id`
+- `userId`
+- `title`
+- `description`
+- `photos`
+- `imageTags`
+- `location`
+- `place`
+- `timestamp`
+- `syncStatus`
+- `createdAt`
+- `updatedAt`
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Troubleshooting
+
+### App opens but Firebase data does not appear
+
+- Confirm Firestore is created in Firebase Console
+- Confirm Google Sign-In is enabled
+- Confirm the correct Firebase project is being used
+- Check `google-services.json` and iOS Firebase config files
+
+### Google login does not work
+
+- Verify SHA keys for Android
+- Re-download Firebase config if project settings changed
+- Confirm Google login is enabled in Firebase Authentication
+
+### iOS build fails
+
+```bash
+cd ios
+bundle exec pod install
+cd ..
+```
+
+### Android build fails
+
+- Check Android SDK and emulator setup
+- Sync Gradle and rebuild from Android Studio
+
+### Place name or tags are not updating
+
+- Check internet connection
+- Verify Mapbox and Azure credentials in `Src/config/apiKeys.ts`
+- Confirm API services are enabled and active
+
+## Notes
+
+- Local data is stored in SQLite for offline access
+- Sync happens in the background when connectivity returns
+- API keys should not be committed to a public repository in production
+
+## License
+
+This project currently has no explicit license. Add one if you plan to distribute it publicly.

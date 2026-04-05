@@ -34,6 +34,7 @@ import ToastHelper from '../../Components/ToastHelper';
 import SvgIcon from '../../Components/SvgIcon';
 import { MainStackParamsList } from '../../@types/NavigationTypes';
 import { useAuth } from '../../Hooks/useAuth';
+import { useThemeMode } from '../../Hooks/useThemeMode';
 import { useAppDispatch } from '../../Store/StoreConfig';
 import {
   createJournalEntry,
@@ -69,6 +70,7 @@ const PostSchema = Yup.object().shape({
 });
 
 const PostScreen = () => {
+  const { colors } = useThemeMode();
   const navigation =
     useNavigation<StackNavigationProp<MainStackParamsList, 'PostScreen'>>();
   const route = useRoute<any>();
@@ -362,7 +364,11 @@ const PostScreen = () => {
     <HOCView
       isEnableScrollView
       isShowHeader
-      scrollViewContentContainerStyle={styles.container}
+      bgColor={colors.background}
+      scrollViewContentContainerStyle={[
+        styles.container,
+        { backgroundColor: colors.background },
+      ]}
       headerProps={{
         isShowBorder: true,
         title: editEntry ? 'Edit Entry' : 'New Journal Entry',
@@ -407,10 +413,20 @@ const PostScreen = () => {
         errorText={touched.dateTime && errors.dateTime}
       />
 
-      <View style={styles.locationCard}>
+      <View
+        style={[
+          styles.locationCard,
+          {
+            borderColor: colors.border,
+            backgroundColor: colors.surface,
+          },
+        ]}
+      >
         <View>
-          <Text style={styles.locationTitle}>Location name</Text>
-          <Text style={styles.locationValue}>
+          <Text style={[styles.locationTitle, { color: colors.textPrimary }]}>
+            Location name
+          </Text>
+          <Text style={[styles.locationValue, { color: colors.textSecondary }]}>
             {isFetchingLocation || isResolvingPlace
               ? 'Fetching location name...'
               : placeName
@@ -423,12 +439,12 @@ const PostScreen = () => {
           </Text>
         </View>
         <TouchableOpacity
-          style={styles.locationButton}
+          style={[styles.locationButton, { backgroundColor: colors.accent }]}
           onPress={fetchCurrentLocation}
           disabled={isFetchingLocation || isResolvingPlace}
         >
           {isFetchingLocation || isResolvingPlace ? (
-            <ActivityIndicator size="small" color={COLORS.primary} />
+            <ActivityIndicator size="small" color={colors.textPrimary} />
           ) : (
             <Text style={styles.locationButtonText}>
               {capturedLocation ? 'Refresh' : 'Retry'}
@@ -437,39 +453,71 @@ const PostScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.sectionLabel}>Media</Text>
+      <Text style={[styles.sectionLabel, { color: colors.textSecondary }]}>
+        Media
+      </Text>
       <View style={styles.mediaActionRow}>
         <TouchableOpacity
           style={styles.mediaActionButton}
           onPress={handleSelectFromGallery}
         >
-          <View style={styles.mediaIconWrap}>
+          <View
+            style={[
+              styles.mediaIconWrap,
+              {
+                backgroundColor: colors.surface,
+                borderColor: colors.border,
+              },
+            ]}
+          >
             <SvgIcon icon="photos" size={24} />
           </View>
-          <Text style={styles.mediaActionText}>Gallery</Text>
+          <Text style={[styles.mediaActionText, { color: colors.textPrimary }]}>
+            Gallery
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.mediaActionButton}
           onPress={handleOpenCamera}
         >
-          <View style={styles.mediaIconWrap}>
+          <View
+            style={[
+              styles.mediaIconWrap,
+              {
+                backgroundColor: colors.surface,
+                borderColor: colors.border,
+              },
+            ]}
+          >
             <SvgIcon icon="camera" size={24} />
           </View>
-          <Text style={styles.mediaActionText}>Camera</Text>
+          <Text style={[styles.mediaActionText, { color: colors.textPrimary }]}>
+            Camera
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.mediaActionButton} onPress={() => {}}>
-          <View style={styles.mediaIconWrap}>
+          <View
+            style={[
+              styles.mediaIconWrap,
+              {
+                backgroundColor: colors.surface,
+                borderColor: colors.border,
+              },
+            ]}
+          >
             <SvgIcon icon="mic" size={24} />
           </View>
-          <Text style={styles.mediaActionText}>Mic</Text>
+          <Text style={[styles.mediaActionText, { color: colors.textPrimary }]}>
+            Mic
+          </Text>
         </TouchableOpacity>
       </View>
 
       {values.images.length > 0 && (
         <>
-          <Text style={styles.sectionLabel}>
+          <Text style={[styles.sectionLabel, { color: colors.textSecondary }]}>
             Images ({values.images.length}/5)
           </Text>
           <DraggableFlatList
@@ -491,7 +539,10 @@ const PostScreen = () => {
         </StyledText>
       ) : null}
 
-      <TouchableOpacity style={styles.submitBtn} onPress={() => handleSubmit()}>
+      <TouchableOpacity
+        style={[styles.submitBtn, { backgroundColor: colors.accent }]}
+        onPress={() => handleSubmit()}
+      >
         <Text style={styles.submitText}>
           {isSubmitting
             ? 'Saving...'

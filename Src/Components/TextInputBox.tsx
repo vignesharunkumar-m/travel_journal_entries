@@ -6,6 +6,7 @@ import { FONTS } from '../Utility/Fonts';
 import { COLORS } from '../Utility/Colors';
 import { FONTSIZES } from '../Utility/FontSizes';
 import { TextInputBoxProps } from '../@types/components';
+import { useThemeMode } from '../Hooks/useThemeMode';
 
 const TextInputBox: React.FC<TextInputBoxProps> = ({
   title = '',
@@ -25,6 +26,8 @@ const TextInputBox: React.FC<TextInputBoxProps> = ({
   inputContainerStyle,
   inputFieldStyle,
 }) => {
+  const { colors } = useThemeMode();
+
   const getValue = () => {
     return typeof value === 'number' ? value.toString() : value;
   };
@@ -34,7 +37,9 @@ const TextInputBox: React.FC<TextInputBoxProps> = ({
       {/* TITLE */}
       {title ? (
         <View style={styles.titleRow}>
-          <StyledText style={styles.title}>{title}</StyledText>
+          <StyledText style={[styles.title, { color: colors.textSecondary }]}>
+            {title}
+          </StyledText>
 
           {isRequired && <StyledText style={styles.requiredText}>*</StyledText>}
         </View>
@@ -47,16 +52,20 @@ const TextInputBox: React.FC<TextInputBoxProps> = ({
           inputContainerStyle,
           {
             borderColor: errorText ? COLORS.error : borderColor,
-            backgroundColor: inputBg,
+            backgroundColor: inputBg ?? colors.surface,
           },
         ]}
       >
         <TextInput
           value={getValue()}
           onChangeText={onChangeText}
-          style={[styles.inputField, inputFieldStyle]}
+          style={[
+            styles.inputField,
+            { color: colors.textPrimary },
+            inputFieldStyle,
+          ]}
           placeholder={placeHolder}
-          placeholderTextColor={COLORS.placeHolder}
+          placeholderTextColor={colors.textMuted}
           maxLength={maxLength}
           multiline={multiline}
           scrollEnabled={isEnableScrollBar}
